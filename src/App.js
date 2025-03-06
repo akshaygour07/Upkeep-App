@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import SignUp from "./pages/signup";
 import Login from "./pages/login";
-import Dashboard from "./pages/dashboard";
 import { Navigate } from "react-router-dom";
 import Notes from "./pages/notes";
 import Projects from "./pages/projects";

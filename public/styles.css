@@ -49,10 +49,11 @@ main{
 
 form.create-note{
   position: relative;
-  width: 700px;
-  margin: 30px auto 20px auto;
-  background: #fff;
-  padding: 15px;
+  top: 30px;
+  width: 500px;
+  margin: 0 auto;
+  background: #f5ba13;
+  padding: 2px;
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
@@ -67,23 +68,21 @@ form.create-note textarea{
   font-family: inherit;
   resize: none;
 }
-
+/* 
 form.create-note button{
   position: absolute;
-  right: 18px;
-  bottom: -18px;
-  background: #f5ba13;
+  right: 28px;
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 56px;
+  height: 56px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
   font-size: 32px;
 
-}
+} */
 
 .title-icon{
   margin:0 20px;

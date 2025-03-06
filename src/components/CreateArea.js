@@ -1,65 +1,95 @@
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import Zoom from "@mui/material/Zoom";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, IconButton } from "@mui/material";
 
 function CreateArea(props) {
-  const [isExpend, setisExpend] = useState(false);
-
   const [noteText, setNoteText] = useState({
     title: "",
     content: "",
   });
 
+  const [open, setOpen] = useState(false); // To control modal visibility
+
   function handleChange(event) {
     const { name, value } = event.target;
-    setNoteText((preValue) => {
+    setNoteText((prevValue) => {
       return {
-        ...noteText,
+        ...prevValue,
         [name]: value,
       };
     });
   }
 
-  function expand() {
-    setisExpend(true);
+  function handleClickOpen() {
+    setOpen(true); // Open modal when textarea is clicked
+  }
+
+  function handleClose() {
+    setOpen(false); // Close modal
+  }
+
+  function handleSave() {
+    props.onAdd(noteText);
+    setNoteText({
+      title: "",
+      content: "",
+    });
+    setOpen(false); // Close modal after saving the note
   }
 
   return (
-    <div>
+    <>
       <form className="create-note">
-        {isExpend && (
-          <input
+        {/* Non-editable Textarea styled like a button */}
+        <TextField
+          onClick={handleClickOpen}
+          name="content"
+          placeholder="Take a note..."
+          InputProps={{
+            readOnly: true,
+            // backgroundColor: "#ffefa5",
+            style: { cursor: "pointer", backgroundColor: "#ffefa5", padding: "8px", color: 'black' },
+          }}
+          fullWidth
+          variant="outlined"
+        />
+      </form>
+
+      {/* Modal/Dialog */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Write Your Note</DialogTitle>
+        <DialogContent>
+          <TextField
             onChange={handleChange}
             name="title"
             placeholder="Title"
             value={noteText.title}
+            fullWidth
+            variant="outlined"
+            margin="normal"
           />
-        )}
-
-        <textarea
-          onChange={handleChange}
-          onClick={expand}
-          name="content"
-          placeholder="Take a note..."
-          rows={isExpend ? "3" : "1"}
-          value={noteText.content}
-        />
-        <Zoom in={isExpend}>
-          <button
-            onClick={(event) => {
-              props.onAdd(noteText);
-              setNoteText({
-                title: "",
-                content: "",
-              });
-              event.preventDefault();
-            }}
-          >
-            <AddIcon />
-          </button>
-        </Zoom>
-      </form>
-    </div>
+          <TextField
+            onChange={handleChange}
+            name="content"
+            placeholder="Take your note content..."
+            value={noteText.content}
+            fullWidth
+            variant="outlined"
+            margin="normal"
+            multiline
+            rows={4}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
